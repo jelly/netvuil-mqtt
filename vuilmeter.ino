@@ -19,7 +19,6 @@ PubSubClient mqtt_client(client);
 
 
 // NTP
-
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP);
 
