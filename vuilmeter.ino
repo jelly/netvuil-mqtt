@@ -54,7 +54,6 @@ void connectMQTT() {
   }
 }
 
-
 void setup() {
   Serial.begin(115200);
   Serial.println("vuilmeter startup");
