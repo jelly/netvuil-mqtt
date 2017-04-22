@@ -100,8 +100,6 @@ void setup() {
 int counter = SAMPLES;
 int avg = 0;
 int max_min = 0;
-int sample_counter = PEAK_SAMPLES;
-int samples[PEAK_SAMPLES];
 
 void loop() {
   if (!mqtt_client.connected()) {
@@ -127,24 +125,10 @@ void loop() {
     max_min = 0;
   }
 
-  if (sample_counter-- < 0) {
-    int winner = 0;
-    for (int i = 0; i < PEAK_SAMPLES; i++) {
-      if (samples[i] > winner) {
-        winner = samples[i];
-      }
-
-      if (winner > PEAK) {
-        mqtt_client.publish("revspace/sensors/netvuil/peak", String(winner).c_str(), true);
-        timeClient.update();
-	mqtt_client.publish("revspace/sensors/netvuil/peak_time", String(timeClient.getFormattedTime()).c_str(), true);
-      }
-      sample_counter = 0;
-      winner = 0;
-    }
-
-  } else {
-    samples[sample_counter] = ldr;
+  if (ldr > PEAK) {
+    mqtt_client.publish("revspace/sensors/netvuil/peak", String(ldr).c_str(), true);
+    timeClient.update();
+    mqtt_client.publish("revspace/sensors/netvuil/peak_time", String(timeClient.getFormattedTime()).c_str(), true);
   }
 
   // Arduino OTA
