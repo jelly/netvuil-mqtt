@@ -14,7 +14,7 @@ const char pass[] = "";
 WiFiClient client;
 
 // MQTT
-const char* mqtt_server = "revspace.nl";
+const char* mqtt_server = "mosquitto.space.revspace.nl";
 PubSubClient mqtt_client(client);
 
 
